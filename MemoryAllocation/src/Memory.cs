@@ -11,6 +11,7 @@ namespace MemoryAllocation
   {
     public static readonly int FIRST_FIT = 0;
     public static readonly int BEST_FIT = 1;
+    public static readonly int WORST_FIT = 2;
 
     public int algorithm { get; set; }
     private int memorySize;

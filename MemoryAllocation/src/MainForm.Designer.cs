@@ -181,7 +181,8 @@
       this.comboBox_type.FormattingEnabled = true;
       this.comboBox_type.Items.AddRange(new object[] {
             "First fit",
-            "Best fit"});
+            "Best fit",
+            "Worst fit"});
       this.comboBox_type.Location = new System.Drawing.Point(63, 20);
       this.comboBox_type.Name = "comboBox_type";
       this.comboBox_type.Size = new System.Drawing.Size(90, 21);

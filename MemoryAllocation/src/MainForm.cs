@@ -28,14 +28,20 @@ namespace MemoryAllocation
 
     private void button_allocate_Click(object sender, EventArgs e)
     {
-      memory.allocate(textBox_name.Text, int.Parse(textBox_size.Text));
-      panel_memory.Refresh();
+      bool successful = memory.allocate(textBox_name.Text, int.Parse(textBox_size.Text));
+      if (!successful)
+        MessageBox.Show("No enough memory space!");
+
+      refresh();
     }
 
     private void button_deallocate_Click(object sender, EventArgs e)
     {
-      memory.deallocate(listBox_processes.SelectedIndex);
-      panel_memory.Refresh();
+      if (listBox_processes.Items.Count > 0)
+      {
+        memory.deallocate(listBox_processes.SelectedIndex);
+        refresh();
+      }
     }
 
     private void refresh()
@@ -53,9 +59,7 @@ namespace MemoryAllocation
         slots.AddRange(memory.getAllocatedSlots());
         slots.Sort();
         foreach (MemorySlot slot in slots)
-        {
           DrawSlot(g, panel_memory, slot, memory.getMemorySize(), Color.White);
-        }
       }
     }
 
@@ -116,7 +120,7 @@ namespace MemoryAllocation
 
     private void MainForm_SizeChanged(object sender, EventArgs e)
     {
-      panel_memory.Refresh();
+      refresh();
     }
   }
 }
