@@ -39,10 +39,11 @@
       this.button_deallocate = new System.Windows.Forms.Button();
       this.panel_memory = new System.Windows.Forms.Panel();
       this.groupBox3 = new System.Windows.Forms.GroupBox();
+      this.label4 = new System.Windows.Forms.Label();
+      this.comboBox_type = new System.Windows.Forms.ComboBox();
       this.label3 = new System.Windows.Forms.Label();
       this.textBox_memorySize = new System.Windows.Forms.TextBox();
-      this.comboBox_type = new System.Windows.Forms.ComboBox();
-      this.label4 = new System.Windows.Forms.Label();
+      this.button_Initialize = new System.Windows.Forms.Button();
       this.groupBox1.SuspendLayout();
       this.groupBox2.SuspendLayout();
       this.groupBox3.SuspendLayout();
@@ -70,15 +71,15 @@
       // 
       this.textBox_size.Location = new System.Drawing.Point(53, 45);
       this.textBox_size.Name = "textBox_size";
-      this.textBox_size.Size = new System.Drawing.Size(100, 20);
+      this.textBox_size.Size = new System.Drawing.Size(105, 20);
       this.textBox_size.TabIndex = 2;
       this.textBox_size.Text = "8192";
       // 
       // button_allocate
       // 
-      this.button_allocate.Location = new System.Drawing.Point(53, 73);
+      this.button_allocate.Location = new System.Drawing.Point(6, 76);
       this.button_allocate.Name = "button_allocate";
-      this.button_allocate.Size = new System.Drawing.Size(75, 23);
+      this.button_allocate.Size = new System.Drawing.Size(152, 23);
       this.button_allocate.TabIndex = 3;
       this.button_allocate.Text = "Allocate";
       this.button_allocate.UseVisualStyleBackColor = true;
@@ -88,7 +89,7 @@
       // 
       this.textBox_name.Location = new System.Drawing.Point(53, 19);
       this.textBox_name.Name = "textBox_name";
-      this.textBox_name.Size = new System.Drawing.Size(100, 20);
+      this.textBox_name.Size = new System.Drawing.Size(105, 20);
       this.textBox_name.TabIndex = 5;
       this.textBox_name.Text = "Process Name";
       // 
@@ -109,9 +110,9 @@
       this.groupBox1.Controls.Add(this.textBox_size);
       this.groupBox1.Controls.Add(this.label2);
       this.groupBox1.Controls.Add(this.button_allocate);
-      this.groupBox1.Location = new System.Drawing.Point(12, 92);
+      this.groupBox1.Location = new System.Drawing.Point(17, 119);
       this.groupBox1.Name = "groupBox1";
-      this.groupBox1.Size = new System.Drawing.Size(163, 102);
+      this.groupBox1.Size = new System.Drawing.Size(163, 105);
       this.groupBox1.TabIndex = 6;
       this.groupBox1.TabStop = false;
       this.groupBox1.Text = "Allocation";
@@ -120,18 +121,18 @@
       // 
       this.groupBox2.Controls.Add(this.button_deallocate);
       this.groupBox2.Controls.Add(this.listBox_processes);
-      this.groupBox2.Location = new System.Drawing.Point(12, 194);
+      this.groupBox2.Location = new System.Drawing.Point(17, 230);
       this.groupBox2.Name = "groupBox2";
-      this.groupBox2.Size = new System.Drawing.Size(163, 272);
+      this.groupBox2.Size = new System.Drawing.Size(163, 269);
       this.groupBox2.TabIndex = 7;
       this.groupBox2.TabStop = false;
       this.groupBox2.Text = "Deallocation";
       // 
       // button_deallocate
       // 
-      this.button_deallocate.Location = new System.Drawing.Point(44, 243);
+      this.button_deallocate.Location = new System.Drawing.Point(6, 240);
       this.button_deallocate.Name = "button_deallocate";
-      this.button_deallocate.Size = new System.Drawing.Size(75, 23);
+      this.button_deallocate.Size = new System.Drawing.Size(148, 23);
       this.button_deallocate.TabIndex = 1;
       this.button_deallocate.Text = "Deallocate";
       this.button_deallocate.UseVisualStyleBackColor = true;
@@ -139,41 +140,35 @@
       // 
       // panel_memory
       // 
-      this.panel_memory.Location = new System.Drawing.Point(181, 13);
+      this.panel_memory.Location = new System.Drawing.Point(187, 7);
       this.panel_memory.Name = "panel_memory";
-      this.panel_memory.Size = new System.Drawing.Size(227, 453);
+      this.panel_memory.Size = new System.Drawing.Size(272, 495);
       this.panel_memory.TabIndex = 8;
       this.panel_memory.Paint += new System.Windows.Forms.PaintEventHandler(this.panel_memory_Paint);
       // 
       // groupBox3
       // 
+      this.groupBox3.Controls.Add(this.button_Initialize);
       this.groupBox3.Controls.Add(this.label4);
       this.groupBox3.Controls.Add(this.comboBox_type);
       this.groupBox3.Controls.Add(this.label3);
       this.groupBox3.Controls.Add(this.textBox_memorySize);
       this.groupBox3.Location = new System.Drawing.Point(12, 13);
       this.groupBox3.Name = "groupBox3";
-      this.groupBox3.Size = new System.Drawing.Size(163, 73);
+      this.groupBox3.Size = new System.Drawing.Size(169, 100);
       this.groupBox3.TabIndex = 9;
       this.groupBox3.TabStop = false;
       this.groupBox3.Text = "Memory";
       // 
-      // label3
+      // label4
       // 
-      this.label3.AutoSize = true;
-      this.label3.Location = new System.Drawing.Point(6, 47);
-      this.label3.Name = "label3";
-      this.label3.Size = new System.Drawing.Size(47, 13);
-      this.label3.TabIndex = 3;
-      this.label3.Text = "Size (B):";
-      this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-      // 
-      // textBox_memorySize
-      // 
-      this.textBox_memorySize.Location = new System.Drawing.Point(63, 44);
-      this.textBox_memorySize.Name = "textBox_memorySize";
-      this.textBox_memorySize.Size = new System.Drawing.Size(90, 20);
-      this.textBox_memorySize.TabIndex = 4;
+      this.label4.AutoSize = true;
+      this.label4.Location = new System.Drawing.Point(2, 22);
+      this.label4.Name = "label4";
+      this.label4.Size = new System.Drawing.Size(57, 13);
+      this.label4.TabIndex = 6;
+      this.label4.Text = "Allocation:";
+      this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
       // 
       // comboBox_type
       // 
@@ -183,26 +178,43 @@
             "First fit",
             "Best fit",
             "Worst fit"});
-      this.comboBox_type.Location = new System.Drawing.Point(63, 20);
+      this.comboBox_type.Location = new System.Drawing.Point(65, 19);
       this.comboBox_type.Name = "comboBox_type";
-      this.comboBox_type.Size = new System.Drawing.Size(90, 21);
+      this.comboBox_type.Size = new System.Drawing.Size(98, 21);
       this.comboBox_type.TabIndex = 5;
       // 
-      // label4
+      // label3
       // 
-      this.label4.AutoSize = true;
-      this.label4.Location = new System.Drawing.Point(6, 23);
-      this.label4.Name = "label4";
-      this.label4.Size = new System.Drawing.Size(57, 13);
-      this.label4.TabIndex = 6;
-      this.label4.Text = "Allocation:";
-      this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+      this.label3.AutoSize = true;
+      this.label3.Location = new System.Drawing.Point(2, 46);
+      this.label3.Name = "label3";
+      this.label3.Size = new System.Drawing.Size(47, 13);
+      this.label3.TabIndex = 3;
+      this.label3.Text = "Size (B):";
+      this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+      // 
+      // textBox_memorySize
+      // 
+      this.textBox_memorySize.Location = new System.Drawing.Point(65, 43);
+      this.textBox_memorySize.Name = "textBox_memorySize";
+      this.textBox_memorySize.Size = new System.Drawing.Size(98, 20);
+      this.textBox_memorySize.TabIndex = 4;
+      // 
+      // button_Initialize
+      // 
+      this.button_Initialize.Location = new System.Drawing.Point(5, 69);
+      this.button_Initialize.Name = "button_Initialize";
+      this.button_Initialize.Size = new System.Drawing.Size(158, 23);
+      this.button_Initialize.TabIndex = 7;
+      this.button_Initialize.Text = "Initialize";
+      this.button_Initialize.UseVisualStyleBackColor = true;
+      this.button_Initialize.Click += new System.EventHandler(this.button_Initialize_Click);
       // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(420, 474);
+      this.ClientSize = new System.Drawing.Size(471, 511);
       this.Controls.Add(this.groupBox3);
       this.Controls.Add(this.panel_memory);
       this.Controls.Add(this.groupBox2);
@@ -236,5 +248,6 @@
     private System.Windows.Forms.ComboBox comboBox_type;
     private System.Windows.Forms.Label label3;
     private System.Windows.Forms.TextBox textBox_memorySize;
+    private System.Windows.Forms.Button button_Initialize;
   }
 }

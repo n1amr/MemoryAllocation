@@ -27,6 +27,11 @@ namespace MemoryAllocation
       refresh();
     }
 
+    private void button_Initialize_Click(object sender, EventArgs e)
+    {
+
+    }
+
     private void button_allocate_Click(object sender, EventArgs e)
     {
       bool successful = memory.allocate(textBox_name.Text, int.Parse(textBox_size.Text));
@@ -63,7 +68,7 @@ namespace MemoryAllocation
         slots.AddRange(memory.getAllocatedSlots());
         slots.Sort();
         foreach (MemorySlot slot in slots)
-          DrawSlot(g, panel_memory, slot, memory.getMemorySize(), Color.White);
+          DrawSlot(g, panel_memory, slot, memory.getMemorySize(), slot.process == null ? Color.White : Color.LightGray);
       }
     }
 
