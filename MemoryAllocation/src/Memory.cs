@@ -17,8 +17,8 @@ namespace MemoryAllocation
     private int memorySize;
 
     private BindingList<Process> processes;
-    private List<MemorySlot> allocatedSlots;
-    private List<MemorySlot> freeSlots;
+    private SortedList<int, MemorySlot> allocatedSlots;
+    private SortedList<int, MemorySlot> freeSlots;
 
     public Memory(int algorithm, int memorySize)
     {
@@ -28,12 +28,12 @@ namespace MemoryAllocation
     public void reset(int algorithm, int memorySize)
     {
       this.processes = new BindingList<Process>();
-      this.allocatedSlots = new List<MemorySlot>();
-      this.freeSlots = new List<MemorySlot>();
+      this.allocatedSlots = new SortedList<int, MemorySlot>();
+      this.freeSlots = new SortedList<int, MemorySlot>();
       this.algorithm = algorithm;
       this.memorySize = memorySize;
 
-      freeSlots.Add(new MemorySlot(0, memorySize));
+      addFreeSlot(new MemorySlot(0, memorySize));
     }
 
     public bool allocate(String name, int size)
@@ -45,12 +45,12 @@ namespace MemoryAllocation
         int remainingSize = freeSlot.size - size;
         int remainingStart = freeSlot.start + size;
 
-        freeSlots.Remove(freeSlot);
+        removeFreeSlot(freeSlot);
         if (remainingSize > 0)
           addFreeSlot(new MemorySlot(remainingStart, remainingSize));
 
         Process process = new Process(name, size);
-        allocatedSlots.Add(new MemorySlot(allocationStart, size, process));
+        addAllocatedSlot(new MemorySlot(allocationStart, size, process));
         processes.Add(process);
 
         return true;
@@ -62,7 +62,7 @@ namespace MemoryAllocation
     {
       Process process = processes[index];
       MemorySlot allocatedSlot = null;
-      foreach (MemorySlot slot in allocatedSlots)
+      foreach (MemorySlot slot in allocatedSlots.Values.ToList())
       {
         if (slot.process == process)
         {
@@ -71,7 +71,7 @@ namespace MemoryAllocation
         }
       }
 
-      allocatedSlots.Remove(allocatedSlot);
+      removeAllocatedSlot(allocatedSlot);
 
       MemorySlot freeSlot = new MemorySlot(allocatedSlot.start, allocatedSlot.size);
       addFreeSlot(freeSlot);
@@ -86,7 +86,7 @@ namespace MemoryAllocation
 
     public List<MemorySlot> getFreeSlots()
     {
-      return freeSlots;
+      return freeSlots.Values.ToList();
     }
 
     public int getMemorySize()
@@ -96,20 +96,43 @@ namespace MemoryAllocation
 
     public List<MemorySlot> getAllocatedSlots()
     {
-      return allocatedSlots;
+      return allocatedSlots.Values.ToList();
     }
 
     private MemorySlot findSlot(int size)
     {
       MemorySlot slot = null;
-      for (int i = 0; i < freeSlots.Count; i++)
-        if (freeSlots[i].size >= size)
+      foreach (MemorySlot s in freeSlots.Values.ToList())
+        if (s.size >= size)
         {
-          slot = freeSlots[i];
+          slot = s;
           break;
         }
 
       return slot;
+    }
+
+    private void addAllocatedSlot(MemorySlot slot)
+    {
+      if (algorithm == FIRST_FIT)
+        allocatedSlots.Add(slot.start, slot);
+      else if (algorithm == BEST_FIT)
+        allocatedSlots.Add(slot.size, slot);
+      else if (algorithm == WORST_FIT)
+        allocatedSlots.Add(memorySize - slot.start, slot);
+    }
+
+    private void removeAllocatedSlot(MemorySlot slot)
+    {
+
+    }
+
+    private void removeFreeSlot(MemorySlot slot)
+    {
+      foreach (int k in freeSlots.Keys.ToList())
+      {
+        
+      }
     }
 
     private void addFreeSlot(MemorySlot slot)
@@ -117,7 +140,7 @@ namespace MemoryAllocation
       MemorySlot previousSlot = null;
       MemorySlot nextSlot = null;
 
-      foreach (MemorySlot s in freeSlots)
+      foreach (MemorySlot s in freeSlots.Values.ToList())
       {
         if (s.start + s.size == slot.start)
           previousSlot = s;
@@ -129,14 +152,21 @@ namespace MemoryAllocation
       {
         slot.start = previousSlot.start;
         slot.size += previousSlot.size;
-        freeSlots.Remove(previousSlot);
+        //freeSlots.Remove(previousSlot);
       }
       if (nextSlot != null)
       {
         slot.size += nextSlot.size;
-        freeSlots.Remove(nextSlot);
+        //freeSlots.Remove(nextSlot);
       }
-      freeSlots.Add(slot);
+
+      if (algorithm == FIRST_FIT)
+        freeSlots.Add(slot.start, slot);
+      else if (algorithm == BEST_FIT)
+        freeSlots.Add(slot.size, slot);
+      else if (algorithm == WORST_FIT)
+        freeSlots.Add(memorySize - slot.start, slot);
+
     }
   }
 }
