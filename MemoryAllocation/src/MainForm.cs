@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MemoryAllocation.src
+namespace MemoryAllocation
 {
   public partial class MainForm : Form
   {
@@ -18,7 +18,7 @@ namespace MemoryAllocation.src
     {
       InitializeComponent();
 
-      controller = new Controller();
+      controller = new Controller(Controller.FIRST_FIT, 100);
       listBox_processes.DataSource = controller.getProcesses();
     }
 

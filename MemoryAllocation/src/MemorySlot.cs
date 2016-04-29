@@ -6,25 +6,20 @@ using System.Threading.Tasks;
 
 namespace MemoryAllocation
 {
-  class Process
+  class MemorySlot
   {
-    public String name { get; set; }
+    public int start{ get; set; }
     public int size { get; set; }
 
-    public Process(String name, int size)
+    public MemorySlot(int start, int size)
     {
-      this.name = name;
+      this.start = start;
       this.size = size;
-    }
-
-    public Process(int size)
-      : this("Process", size)
-    {
     }
 
     public override String ToString()
     {
-      return String.Format("{0} ({1} B)", name, size);
+      return String.Format("{0} : {1}", start, start+size);
     }
   }
 }

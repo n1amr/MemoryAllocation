@@ -1,4 +1,4 @@
-﻿namespace MemoryAllocation.src
+﻿namespace MemoryAllocation
 {
   partial class MainForm
   {
