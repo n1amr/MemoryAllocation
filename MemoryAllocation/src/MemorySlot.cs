@@ -6,20 +6,32 @@ using System.Threading.Tasks;
 
 namespace MemoryAllocation
 {
-  class MemorySlot
+  class MemorySlot : IComparable<MemorySlot>
   {
-    public int start{ get; set; }
+    public int start { get; set; }
     public int size { get; set; }
+    public Process process { get; set; }
 
-    public MemorySlot(int start, int size)
+    public MemorySlot(int start, int size, Process process)
     {
       this.start = start;
       this.size = size;
+      this.process = process;
+    }
+
+    public MemorySlot(int start, int size)
+      : this(start, size, null)
+    {
     }
 
     public override String ToString()
     {
-      return String.Format("{0} : {1}", start, start+size);
+      return String.Format("{0} : {1} ({2})", start, start + size, process.name);
+    }
+
+    int IComparable<MemorySlot>.CompareTo(MemorySlot slot)
+    {
+      return this.start - slot.start;
     }
   }
 }

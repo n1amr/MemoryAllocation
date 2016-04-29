@@ -136,6 +136,7 @@
       this.panel_memory.Name = "panel_memory";
       this.panel_memory.Size = new System.Drawing.Size(311, 380);
       this.panel_memory.TabIndex = 8;
+      this.panel_memory.Paint += new System.Windows.Forms.PaintEventHandler(this.panel_memory_Paint);
       // 
       // MainForm
       // 
@@ -147,6 +148,7 @@
       this.Controls.Add(this.groupBox1);
       this.Name = "MainForm";
       this.Text = "Memory Allocation";
+      this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
       this.groupBox1.ResumeLayout(false);
       this.groupBox1.PerformLayout();
       this.groupBox2.ResumeLayout(false);

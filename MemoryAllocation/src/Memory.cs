@@ -7,7 +7,7 @@ using System.ComponentModel;
 
 namespace MemoryAllocation
 {
-  class Controller
+  class Memory
   {
     public static readonly int FIRST_FIT = 0;
     public static readonly int BEST_FIT = 1;
@@ -19,7 +19,7 @@ namespace MemoryAllocation
     private List<MemorySlot> allocatedSlots;
     private List<MemorySlot> freeSlots;
 
-    public Controller(int algorithm, int memorySize)
+    public Memory(int algorithm, int memorySize)
     {
       reset(algorithm, memorySize);
     }
@@ -45,11 +45,13 @@ namespace MemoryAllocation
         int remainingStart = freeSlot.start + size;
 
         freeSlots.Remove(freeSlot);
-        addFreeSlot(new MemorySlot(remainingStart, remainingSize));
+        if (remainingSize > 0)
+          addFreeSlot(new MemorySlot(remainingStart, remainingSize));
 
-        allocatedSlots.Add(new MemorySlot(allocationStart, size));
+        Process process = new Process(name, size);
+        allocatedSlots.Add(new MemorySlot(allocationStart, size, process));
+        processes.Add(process);
 
-        processes.Add(new Process(name, size));
         return true;
       }
       return false;
@@ -63,6 +65,21 @@ namespace MemoryAllocation
     public BindingList<Process> getProcesses()
     {
       return processes;
+    }
+
+    public List<MemorySlot> getFreeSlots()
+    {
+      return freeSlots;
+    }
+
+    public int getMemorySize()
+    {
+      return memorySize;
+    }
+
+    public List<MemorySlot> getAllocatedSlots()
+    {
+      return allocatedSlots;
     }
 
     private MemorySlot findSlot(int size)
