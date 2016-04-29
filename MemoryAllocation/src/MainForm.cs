@@ -18,7 +18,11 @@ namespace MemoryAllocation
     {
       InitializeComponent();
 
-      memory = new Memory(Memory.FIRST_FIT, 100);
+      comboBox_type.SelectedIndex = 0;
+      textBox_memorySize.Text = "65536";
+      memory = new Memory(comboBox_type.SelectedIndex, int.Parse(textBox_memorySize.Text));
+      //memory = new Memory(comboBox_type.SelectedIndex, int.Parse(textBox_memorySize.Text, System.Globalization.NumberStyles.HexNumber));
+
       listBox_processes.DataSource = memory.getProcesses();
     }
 
@@ -103,7 +107,7 @@ namespace MemoryAllocation
       g.DrawString(slotText, this.Font, textBrush, nameTextPosition, sf);
 
       // Print address label
-      String addressText = endAddress.ToString();
+      String addressText = "0x" + endAddress.ToString("X");
       if ((addressText.Count() + 1) * 6 > slotWidth && endAddress != 0)
         addressText = "";
       addressPosition.X += addressText.Count() * 6;
