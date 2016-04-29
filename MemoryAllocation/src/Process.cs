@@ -9,24 +9,22 @@ namespace MemoryAllocation.src
   class Process
   {
     public String name { get; set; }
-    public int PID { get; set; }
     public int size { get; set; }
 
-    public Process(String name, int pid, int size)
+    public Process(String name, int size)
     {
       this.name = name;
-      this.PID = pid;
       this.size = size;
     }
 
     public Process(int size)
-      : this(null, -1, size)
+      : this("Process", size)
     {
     }
 
     public override String ToString()
     {
-      return String.Format("Process\tname: {0}\tPID: {1}\tsize: {2}", name, PID, size);
+      return String.Format("{0} ({1} B)", name, size);
     }
   }
 }

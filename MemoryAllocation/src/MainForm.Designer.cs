@@ -75,6 +75,7 @@
       this.button_allocate.TabIndex = 3;
       this.button_allocate.Text = "Allocate";
       this.button_allocate.UseVisualStyleBackColor = true;
+      this.button_allocate.Click += new System.EventHandler(this.button_allocate_Click);
       // 
       // textBox_name
       // 
@@ -127,6 +128,7 @@
       this.button_deallocate.TabIndex = 1;
       this.button_deallocate.Text = "Deallocate";
       this.button_deallocate.UseVisualStyleBackColor = true;
+      this.button_deallocate.Click += new System.EventHandler(this.button_deallocate_Click);
       // 
       // panel_memory
       // 
