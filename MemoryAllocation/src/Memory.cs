@@ -33,7 +33,7 @@ namespace MemoryAllocation
       this.algorithm = algorithm;
       this.memorySize = memorySize;
 
-      freeSlots.Add(new MemorySlot(0, memorySize));
+      addFreeSlot(new MemorySlot(0, memorySize));
     }
 
     public bool allocate(String name, int size)
@@ -45,12 +45,13 @@ namespace MemoryAllocation
         int remainingSize = freeSlot.size - size;
         int remainingStart = freeSlot.start + size;
 
-        freeSlots.Remove(freeSlot);
+        removeSlot(freeSlot, freeSlots);
+
         if (remainingSize > 0)
           addFreeSlot(new MemorySlot(remainingStart, remainingSize));
 
         Process process = new Process(name, size);
-        allocatedSlots.Add(new MemorySlot(allocationStart, size, process));
+        addSlot(new MemorySlot(allocationStart, size, process), allocatedSlots);
         processes.Add(process);
 
         return true;
@@ -71,7 +72,7 @@ namespace MemoryAllocation
         }
       }
 
-      allocatedSlots.Remove(allocatedSlot);
+      removeSlot(allocatedSlot, allocatedSlots);
 
       MemorySlot freeSlot = new MemorySlot(allocatedSlot.start, allocatedSlot.size);
       addFreeSlot(freeSlot);
@@ -129,14 +130,58 @@ namespace MemoryAllocation
       {
         slot.start = previousSlot.start;
         slot.size += previousSlot.size;
-        freeSlots.Remove(previousSlot);
+        removeSlot(previousSlot, freeSlots);
       }
       if (nextSlot != null)
       {
         slot.size += nextSlot.size;
-        freeSlots.Remove(nextSlot);
+        removeSlot(nextSlot, freeSlots);
       }
-      freeSlots.Add(slot);
+
+      addSlot(slot, freeSlots);
+    }
+
+    public void addSlot(MemorySlot slot, List<MemorySlot> slots)
+    {
+      if (slots.Count == 0)
+        slots.Add(slot);
+      else
+      {
+        for (int i = 0; i < slots.Count; i++)
+        {
+          if (algorithm == FIRST_FIT)
+          {
+            if (slot.start < slots[i].start)
+            {
+              slots.Insert(i, slot);
+              return;
+            }
+          }
+          else if (algorithm == BEST_FIT)
+          {
+            if (slot.size < slots[i].size)
+            {
+              slots.Insert(i, slot);
+              return;
+            }
+          }
+          else if (algorithm == WORST_FIT)
+          {
+            if (slot.start > slots[i].start)
+            {
+              slots.Insert(i, slot);
+              return;
+            }
+          }
+
+        }
+        slots.Add(slot);
+      }
+    }
+
+    public void removeSlot(MemorySlot slot, List<MemorySlot> slots)
+    {
+      slots.Remove(slot);
     }
   }
 }

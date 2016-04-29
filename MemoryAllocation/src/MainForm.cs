@@ -24,6 +24,7 @@ namespace MemoryAllocation
       //memory = new Memory(comboBox_type.SelectedIndex, int.Parse(textBox_memorySize.Text, System.Globalization.NumberStyles.HexNumber));
 
       listBox_processes.DataSource = memory.getProcesses();
+      refresh();
     }
 
     private void button_allocate_Click(object sender, EventArgs e)
@@ -32,6 +33,7 @@ namespace MemoryAllocation
       if (!successful)
         MessageBox.Show("No enough memory space!");
 
+      c++;
       refresh();
     }
 
@@ -44,8 +46,10 @@ namespace MemoryAllocation
       }
     }
 
+    private int c = 0;
     private void refresh()
     {
+      textBox_name.Text = "Process " + c.ToString();
       panel_memory.Refresh();
     }
 
