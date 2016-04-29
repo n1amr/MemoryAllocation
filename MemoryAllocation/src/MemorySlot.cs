@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MemoryAllocation
 {
-  class MemorySlot : IComparable<MemorySlot>
+  public class MemorySlot : IComparable<MemorySlot>
   {
     public int start { get; set; }
     public int size { get; set; }
@@ -26,7 +26,7 @@ namespace MemoryAllocation
 
     public override String ToString()
     {
-      return String.Format("{0} : {1} ({2})", start, start + size, process.name);
+      return String.Format("{0} : {1} ({2})", start, start + size, process != null ? process.name : "Empty");
     }
 
     int IComparable<MemorySlot>.CompareTo(MemorySlot slot)

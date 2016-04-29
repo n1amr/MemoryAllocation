@@ -16,33 +16,31 @@ namespace MemoryAllocation
     private int memorySize;
     private Memory memory;
     private List<MemorySlot> holes;
-    public MemoryInitializationForm(int algorithm, int memorySize)
+    public MemoryInitializationForm(Memory memory)
     {
       InitializeComponent();
 
+      this.memory = memory;
       holes = new List<MemorySlot>();
-      this.algorithm = algorithm;
-      this.memorySize = memorySize;
     }
 
     private void button_add_Click(object sender, EventArgs e)
     {
-      MemorySlot slot = new MemorySlot(int.Parse(textBox_start.Text), int.Parse(textBox_size.Text),new Process("Empty",int.Parse(textBox_size.Text)));
+      //Process process = new Process("Empty", int.Parse(textBox_size.Text);
+      MemorySlot slot = new MemorySlot(
+        int.Parse(textBox_start.Text),
+        int.Parse(textBox_size.Text)
+        );
       holes.Add(slot);
       listBox_holes.Items.Add(slot);
     }
 
     private void button_Initialize_Click(object sender, EventArgs e)
     {
-      memory = new Memory(algorithm, memorySize, holes);
+      memory.initialize(holes);
 
       this.DialogResult = DialogResult.OK;
       this.Close();
-    }
-
-    public Object getMemory()
-    {
-      return memory;
     }
   }
 }

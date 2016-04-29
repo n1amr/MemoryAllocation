@@ -20,27 +20,18 @@ namespace MemoryAllocation
 
       comboBox_type.SelectedIndex = 0;
       textBox_memorySize.Text = "65536";
-
       memory = new Memory(comboBox_type.SelectedIndex, int.Parse(textBox_memorySize.Text));
+
       listBox_processes.DataSource = memory.getProcesses();
-
       refresh();
-    }
-
-    private void initialize(Memory memory)
-    {
-      if (memory != null)
-      {
-        listBox_processes.DataSource = memory.getProcesses();
-        listBox_processes.Refresh();
-      }
     }
 
     private void button_Initialize_Click(object sender, EventArgs e)
     {
-      MemoryInitializationForm form = new MemoryInitializationForm(comboBox_type.SelectedIndex, int.Parse(textBox_memorySize.Text));
+      MemoryInitializationForm form = new MemoryInitializationForm(memory);
       form.ShowDialog();
-      initialize((Memory)form.getMemory());
+
+      refresh();
     }
 
     private void button_allocate_Click(object sender, EventArgs e)

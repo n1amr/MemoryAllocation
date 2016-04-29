@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MemoryAllocation
 {
-  class Process
+  public class Process
   {
     public String name { get; set; }
     public int size { get; set; }

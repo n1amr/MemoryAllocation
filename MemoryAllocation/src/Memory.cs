@@ -7,7 +7,7 @@ using System.ComponentModel;
 
 namespace MemoryAllocation
 {
-  class Memory
+  public class Memory
   {
     public static readonly int FIRST_FIT = 0;
     public static readonly int BEST_FIT = 1;
@@ -25,15 +25,10 @@ namespace MemoryAllocation
       List<MemorySlot> free_slots = new List<MemorySlot>();
       free_slots.Add(new MemorySlot(0, memorySize));
 
-      reset(algorithm, memorySize, free_slots);
+      reset(algorithm, memorySize);
     }
 
-    public Memory(int algorithm, int memorySize, List<MemorySlot> free_slots)
-    {
-      reset(algorithm, memorySize, free_slots);
-    }
-
-    public void reset(int algorithm, int memorySize, List<MemorySlot> free_slots)
+    public void reset(int algorithm, int memorySize)
     {
       this.processes = new BindingList<Process>();
       this.allocatedSlots = new List<MemorySlot>();
@@ -41,7 +36,7 @@ namespace MemoryAllocation
       this.algorithm = algorithm;
       this.memorySize = memorySize;
 
-      initialize(free_slots);
+      addFreeSlot(new MemorySlot(0, memorySize));
     }
 
     public bool allocate(String name, int size)
@@ -194,6 +189,10 @@ namespace MemoryAllocation
 
     public void initialize(List<MemorySlot> free_slots)
     {
+      processes = new BindingList<Process>();
+      freeSlots = new List<MemorySlot>();
+      allocatedSlots = new List<MemorySlot>();
+
       free_slots.Sort();
       int lastAddress = 0;
       foreach (MemorySlot slot in free_slots)
