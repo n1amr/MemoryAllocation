@@ -22,10 +22,18 @@ namespace MemoryAllocation
 
     public Memory(int algorithm, int memorySize)
     {
-      reset(algorithm, memorySize);
+      List<MemorySlot> free_slots = new List<MemorySlot>();
+      free_slots.Add(new MemorySlot(0, memorySize));
+
+      reset(algorithm, memorySize, free_slots);
     }
 
-    public void reset(int algorithm, int memorySize)
+    public Memory(int algorithm, int memorySize, List<MemorySlot> free_slots)
+    {
+      reset(algorithm, memorySize, free_slots);
+    }
+
+    public void reset(int algorithm, int memorySize, List<MemorySlot> free_slots)
     {
       this.processes = new BindingList<Process>();
       this.allocatedSlots = new List<MemorySlot>();
@@ -33,7 +41,7 @@ namespace MemoryAllocation
       this.algorithm = algorithm;
       this.memorySize = memorySize;
 
-      addFreeSlot(new MemorySlot(0, memorySize));
+      initialize(free_slots);
     }
 
     public bool allocate(String name, int size)
@@ -182,6 +190,32 @@ namespace MemoryAllocation
     public void removeSlot(MemorySlot slot, List<MemorySlot> slots)
     {
       slots.Remove(slot);
+    }
+
+    public void initialize(List<MemorySlot> free_slots)
+    {
+      free_slots.Sort();
+      int lastAddress = 0;
+      foreach (MemorySlot slot in free_slots)
+      {
+        if (slot.start > lastAddress)
+        {
+          Process process = new Process("Allocated", slot.start - lastAddress);
+          MemorySlot newSlot = new MemorySlot(lastAddress, slot.start - lastAddress, process);
+          addSlot(newSlot, allocatedSlots);
+          processes.Add(process);
+        }
+        addSlot(slot, freeSlots);
+        lastAddress = slot.start + slot.size;
+      }
+
+      if (memorySize - lastAddress > 0)
+      {
+        Process process = new Process("Allocated", memorySize - lastAddress);
+        MemorySlot newSlot = new MemorySlot(lastAddress, memorySize - lastAddress, process);
+        addSlot(newSlot, allocatedSlots);
+        processes.Add(process);
+      }
     }
   }
 }
