@@ -72,6 +72,7 @@
       this.textBox_size.Name = "textBox_size";
       this.textBox_size.Size = new System.Drawing.Size(100, 20);
       this.textBox_size.TabIndex = 2;
+      this.textBox_size.Text = "8192";
       // 
       // button_allocate
       // 

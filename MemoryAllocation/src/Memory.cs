@@ -59,6 +59,22 @@ namespace MemoryAllocation
 
     public void deallocate(int index)
     {
+      Process process = processes[index];
+      MemorySlot allocatedSlot = null;
+      foreach (MemorySlot slot in allocatedSlots)
+      {
+        if (slot.process == process)
+        {
+          allocatedSlot = slot;
+          break;
+        }
+      }
+
+      allocatedSlots.Remove(allocatedSlot);
+
+      MemorySlot freeSlot = new MemorySlot(allocatedSlot.start, allocatedSlot.size);
+      addFreeSlot(freeSlot);
+
       processes.RemoveAt(index);
     }
 
@@ -97,8 +113,29 @@ namespace MemoryAllocation
 
     private void addFreeSlot(MemorySlot slot)
     {
+      MemorySlot previousSlot = null;
+      MemorySlot nextSlot = null;
+
+      foreach (MemorySlot s in freeSlots)
+      {
+        if (s.start + s.size == slot.start)
+          previousSlot = s;
+        else if (slot.start + slot.size == s.start)
+          nextSlot = s;
+      }
+
+      if (previousSlot != null)
+      {
+        slot.start = previousSlot.start;
+        slot.size += previousSlot.size;
+        freeSlots.Remove(previousSlot);
+      }
+      if (nextSlot != null)
+      {
+        slot.size += nextSlot.size;
+        freeSlots.Remove(nextSlot);
+      }
       freeSlots.Add(slot);
     }
-
   }
 }
