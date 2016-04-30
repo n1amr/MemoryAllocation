@@ -67,6 +67,8 @@ namespace MemoryAllocation
       base.OnPaint(e);
       using (Graphics g = e.Graphics)
       {
+        DrawSlot(g, panel_memory, new MemorySlot(0, 0), memory.getMemorySize(), Color.LightGray);
+
         List<MemorySlot> slots = new List<MemorySlot>();
         slots.AddRange(memory.getFreeSlots());
         slots.AddRange(memory.getAllocatedSlots());
@@ -92,7 +94,7 @@ namespace MemoryAllocation
       StringFormat sf = new StringFormat();
       sf.FormatFlags = StringFormatFlags.DirectionRightToLeft;
 
-      int VMargin = 50;
+      int VMargin = 10;
       int totalHeight = panel.Height - VMargin * 2;
 
       int slotWidth = panel.Width * 60 / 100;
@@ -104,7 +106,7 @@ namespace MemoryAllocation
       Point rightTop = new Point(leftTop.X + slotWidth, leftTop.Y);
 
       Point centerPoint = new Point(leftTop.X + slotWidth / 2, leftTop.Y + slotHeight / 2);
-      Point nameTextPosition = centerPoint;
+      Point slotTextPosition = centerPoint;
       Point addressPosition = new Point(rightBottom.X + 10, rightBottom.Y - 10);
 
       // Draw slot borders
@@ -117,22 +119,27 @@ namespace MemoryAllocation
       g.FillRectangle(new SolidBrush(color), leftTop.X, leftTop.Y, slotWidth, slotHeight);
 
       // Print process name
-      if (slotText.Count() * 6 > slotWidth)
-        slotText = "..";
-      nameTextPosition.X += (int)(slotText.Count() * 6 / 2);
-      nameTextPosition.Y -= 6;
-      g.DrawString(slotText, this.Font, textBrush, nameTextPosition, sf);
+      if (slotHeight > 16)
+      {
+        slotTextPosition.X += slotText.Count() * 6 / 2;
+        slotTextPosition.Y -= 8;
+        g.DrawString(slotText, this.Font, textBrush, slotTextPosition, sf);
+      }
 
       // Print address label
       String addressText = "0x" + endAddress.ToString("X");
-      if ((addressText.Count() + 1) * 6 > slotWidth && endAddress != 0)
-        addressText = "";
-      addressPosition.X += addressText.Count() * 6;
-      g.DrawString(addressText, this.Font, addressBrush, addressPosition, sf);
+      if (slotHeight > 8)
+      {
+        addressPosition.X += addressText.Count() * 6;
+        g.DrawString(addressText, this.Font, addressBrush, addressPosition, sf);
+      }
     }
 
     private void MainForm_SizeChanged(object sender, EventArgs e)
     {
+      int VMargin = 10;
+      panel_memory.Height = this.Height - 6 * VMargin;
+      panel_memory.Top = VMargin;
       refresh();
     }
 
