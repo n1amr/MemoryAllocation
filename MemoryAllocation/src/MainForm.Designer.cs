@@ -39,10 +39,6 @@
       this.button_deallocate = new System.Windows.Forms.Button();
       this.panel_memory = new System.Windows.Forms.Panel();
       this.groupBox3 = new System.Windows.Forms.GroupBox();
-      this.label4 = new System.Windows.Forms.Label();
-      this.comboBox_type = new System.Windows.Forms.ComboBox();
-      this.label3 = new System.Windows.Forms.Label();
-      this.textBox_memorySize = new System.Windows.Forms.TextBox();
       this.button_Initialize = new System.Windows.Forms.Button();
       this.groupBox1.SuspendLayout();
       this.groupBox2.SuspendLayout();
@@ -54,7 +50,7 @@
       this.listBox_processes.FormattingEnabled = true;
       this.listBox_processes.Location = new System.Drawing.Point(6, 19);
       this.listBox_processes.Name = "listBox_processes";
-      this.listBox_processes.Size = new System.Drawing.Size(148, 212);
+      this.listBox_processes.Size = new System.Drawing.Size(148, 264);
       this.listBox_processes.TabIndex = 0;
       // 
       // label1
@@ -110,7 +106,7 @@
       this.groupBox1.Controls.Add(this.textBox_size);
       this.groupBox1.Controls.Add(this.label2);
       this.groupBox1.Controls.Add(this.button_allocate);
-      this.groupBox1.Location = new System.Drawing.Point(17, 119);
+      this.groupBox1.Location = new System.Drawing.Point(12, 70);
       this.groupBox1.Name = "groupBox1";
       this.groupBox1.Size = new System.Drawing.Size(163, 105);
       this.groupBox1.TabIndex = 6;
@@ -121,16 +117,16 @@
       // 
       this.groupBox2.Controls.Add(this.button_deallocate);
       this.groupBox2.Controls.Add(this.listBox_processes);
-      this.groupBox2.Location = new System.Drawing.Point(17, 230);
+      this.groupBox2.Location = new System.Drawing.Point(13, 181);
       this.groupBox2.Name = "groupBox2";
-      this.groupBox2.Size = new System.Drawing.Size(163, 269);
+      this.groupBox2.Size = new System.Drawing.Size(163, 321);
       this.groupBox2.TabIndex = 7;
       this.groupBox2.TabStop = false;
       this.groupBox2.Text = "Deallocation";
       // 
       // button_deallocate
       // 
-      this.button_deallocate.Location = new System.Drawing.Point(6, 240);
+      this.button_deallocate.Location = new System.Drawing.Point(6, 292);
       this.button_deallocate.Name = "button_deallocate";
       this.button_deallocate.Size = new System.Drawing.Size(148, 23);
       this.button_deallocate.TabIndex = 1;
@@ -149,60 +145,16 @@
       // groupBox3
       // 
       this.groupBox3.Controls.Add(this.button_Initialize);
-      this.groupBox3.Controls.Add(this.label4);
-      this.groupBox3.Controls.Add(this.comboBox_type);
-      this.groupBox3.Controls.Add(this.label3);
-      this.groupBox3.Controls.Add(this.textBox_memorySize);
       this.groupBox3.Location = new System.Drawing.Point(12, 13);
       this.groupBox3.Name = "groupBox3";
-      this.groupBox3.Size = new System.Drawing.Size(169, 100);
+      this.groupBox3.Size = new System.Drawing.Size(169, 51);
       this.groupBox3.TabIndex = 9;
       this.groupBox3.TabStop = false;
       this.groupBox3.Text = "Memory";
       // 
-      // label4
-      // 
-      this.label4.AutoSize = true;
-      this.label4.Location = new System.Drawing.Point(2, 22);
-      this.label4.Name = "label4";
-      this.label4.Size = new System.Drawing.Size(57, 13);
-      this.label4.TabIndex = 6;
-      this.label4.Text = "Allocation:";
-      this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-      // 
-      // comboBox_type
-      // 
-      this.comboBox_type.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-      this.comboBox_type.FormattingEnabled = true;
-      this.comboBox_type.Items.AddRange(new object[] {
-            "First fit",
-            "Best fit",
-            "Worst fit"});
-      this.comboBox_type.Location = new System.Drawing.Point(65, 19);
-      this.comboBox_type.Name = "comboBox_type";
-      this.comboBox_type.Size = new System.Drawing.Size(98, 21);
-      this.comboBox_type.TabIndex = 5;
-      // 
-      // label3
-      // 
-      this.label3.AutoSize = true;
-      this.label3.Location = new System.Drawing.Point(2, 46);
-      this.label3.Name = "label3";
-      this.label3.Size = new System.Drawing.Size(47, 13);
-      this.label3.TabIndex = 3;
-      this.label3.Text = "Size (B):";
-      this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-      // 
-      // textBox_memorySize
-      // 
-      this.textBox_memorySize.Location = new System.Drawing.Point(65, 43);
-      this.textBox_memorySize.Name = "textBox_memorySize";
-      this.textBox_memorySize.Size = new System.Drawing.Size(98, 20);
-      this.textBox_memorySize.TabIndex = 4;
-      // 
       // button_Initialize
       // 
-      this.button_Initialize.Location = new System.Drawing.Point(5, 69);
+      this.button_Initialize.Location = new System.Drawing.Point(6, 19);
       this.button_Initialize.Name = "button_Initialize";
       this.button_Initialize.Size = new System.Drawing.Size(158, 23);
       this.button_Initialize.TabIndex = 7;
@@ -225,12 +177,12 @@
       this.Name = "MainForm";
       this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
       this.Text = "Memory Allocation";
+      this.Load += new System.EventHandler(this.MainForm_Load);
       this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
       this.groupBox1.ResumeLayout(false);
       this.groupBox1.PerformLayout();
       this.groupBox2.ResumeLayout(false);
       this.groupBox3.ResumeLayout(false);
-      this.groupBox3.PerformLayout();
       this.ResumeLayout(false);
 
     }
@@ -248,10 +200,6 @@
     private System.Windows.Forms.Button button_deallocate;
     private System.Windows.Forms.Panel panel_memory;
     private System.Windows.Forms.GroupBox groupBox3;
-    private System.Windows.Forms.Label label4;
-    private System.Windows.Forms.ComboBox comboBox_type;
-    private System.Windows.Forms.Label label3;
-    private System.Windows.Forms.TextBox textBox_memorySize;
     private System.Windows.Forms.Button button_Initialize;
   }
 }

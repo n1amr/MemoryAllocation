@@ -17,19 +17,15 @@ namespace MemoryAllocation
     public MainForm()
     {
       InitializeComponent();
-
-      comboBox_type.SelectedIndex = 0;
-      textBox_memorySize.Text = "65536";
-      memory = new Memory(comboBox_type.SelectedIndex, int.Parse(textBox_memorySize.Text));
-
-      listBox_processes.DataSource = memory.getProcesses();
-      refresh();
     }
 
     private void button_Initialize_Click(object sender, EventArgs e)
     {
-      MemoryInitializationForm form = new MemoryInitializationForm(memory);
+      MemoryInitializationForm form = new MemoryInitializationForm();
       form.ShowDialog();
+
+      if (form.DialogResult == System.Windows.Forms.DialogResult.OK)
+        memory = form.getMemory();
 
       refresh();
     }
@@ -46,9 +42,10 @@ namespace MemoryAllocation
 
     private void button_deallocate_Click(object sender, EventArgs e)
     {
-      if (listBox_processes.Items.Count > 0)
+      Process process = (Process)listBox_processes.SelectedItem;
+      if (process != null)
       {
-        memory.deallocate(listBox_processes.SelectedIndex);
+        memory.deallocate(process);
         refresh();
       }
     }
@@ -56,6 +53,11 @@ namespace MemoryAllocation
     private int c = 0;
     private void refresh()
     {
+      listBox_processes.Items.Clear();
+      foreach (Process p in memory.getProcesses())
+      {
+        listBox_processes.Items.Add(p);
+      }
       textBox_name.Text = "Process " + c.ToString();
       panel_memory.Refresh();
     }
@@ -132,6 +134,22 @@ namespace MemoryAllocation
     private void MainForm_SizeChanged(object sender, EventArgs e)
     {
       refresh();
+    }
+
+    private void MainForm_Load(object sender, EventArgs e)
+    {
+      MemoryInitializationForm form = new MemoryInitializationForm();
+      form.ShowDialog();
+
+      if (form.DialogResult == System.Windows.Forms.DialogResult.OK)
+      {
+        memory = form.getMemory();
+        refresh();
+      }
+      else
+      {
+        this.Close();
+      }
     }
   }
 }

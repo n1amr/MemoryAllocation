@@ -16,7 +16,7 @@ namespace MemoryAllocation
     public int algorithm { get; set; }
     private int memorySize;
 
-    private BindingList<Process> processes;
+    private List<Process> processes;
     private List<MemorySlot> allocatedSlots;
     private List<MemorySlot> freeSlots;
 
@@ -30,7 +30,7 @@ namespace MemoryAllocation
 
     public void reset(int algorithm, int memorySize)
     {
-      this.processes = new BindingList<Process>();
+      this.processes = new List<Process>();
       this.allocatedSlots = new List<MemorySlot>();
       this.freeSlots = new List<MemorySlot>();
       this.algorithm = algorithm;
@@ -62,9 +62,9 @@ namespace MemoryAllocation
       return false;
     }
 
-    public void deallocate(int index)
+    public void deallocate(Process process)
     {
-      Process process = processes[index];
+      //Process process = processes[index];
       MemorySlot allocatedSlot = null;
       foreach (MemorySlot slot in allocatedSlots)
       {
@@ -80,10 +80,10 @@ namespace MemoryAllocation
       MemorySlot freeSlot = new MemorySlot(allocatedSlot.start, allocatedSlot.size);
       addFreeSlot(freeSlot);
 
-      processes.RemoveAt(index);
+      processes.Remove(process);
     }
 
-    public BindingList<Process> getProcesses()
+    public List<Process> getProcesses()
     {
       return processes;
     }
@@ -189,7 +189,7 @@ namespace MemoryAllocation
 
     public void initialize(List<MemorySlot> free_slots)
     {
-      processes = new BindingList<Process>();
+      processes = new List<Process>();
       freeSlots = new List<MemorySlot>();
       allocatedSlots = new List<MemorySlot>();
 
@@ -204,7 +204,7 @@ namespace MemoryAllocation
           addSlot(newSlot, allocatedSlots);
           processes.Add(process);
         }
-        addSlot(slot, freeSlots);
+        addFreeSlot(slot);
         lastAddress = slot.start + slot.size;
       }
 
