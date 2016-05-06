@@ -25,8 +25,10 @@ namespace MemoryAllocation
       form.ShowDialog();
 
       if (form.DialogResult == System.Windows.Forms.DialogResult.OK)
+      {
         memory = form.getMemory();
-
+        processCounter++;
+      }
       refresh();
     }
 
@@ -36,7 +38,7 @@ namespace MemoryAllocation
       if (!successful)
         MessageBox.Show("No enough memory space!");
 
-      c++;
+      processCounter++;
       refresh();
     }
 
@@ -55,15 +57,14 @@ namespace MemoryAllocation
       }
     }
 
-    private int c = 0;
+    private int processCounter = 0;
     private void refresh()
     {
       listBox_processes.Items.Clear();
       foreach (Process p in memory.getProcesses())
-      {
         listBox_processes.Items.Add(p);
-      }
-      textBox_name.Text = "Process " + c.ToString();
+
+      textBox_name.Text = "Process " + processCounter.ToString();
       panel_memory.Refresh();
     }
 
@@ -159,9 +160,7 @@ namespace MemoryAllocation
         refresh();
       }
       else
-      {
         this.Close();
-      }
     }
   }
 }
