@@ -42,11 +42,16 @@ namespace MemoryAllocation
 
     private void button_deallocate_Click(object sender, EventArgs e)
     {
-      Process process = (Process)listBox_processes.SelectedItem;
-      if (process != null)
+      int index = listBox_processes.SelectedIndex;
+      if (index >= 0 && index < listBox_processes.Items.Count)
       {
+        Process process = (Process)listBox_processes.Items[index];
         memory.deallocate(process);
         refresh();
+        if (index < listBox_processes.Items.Count)
+          listBox_processes.SelectedIndex = index;
+        else if (listBox_processes.Items.Count != 0)
+          listBox_processes.SelectedIndex = listBox_processes.Items.Count - 1;
       }
     }
 

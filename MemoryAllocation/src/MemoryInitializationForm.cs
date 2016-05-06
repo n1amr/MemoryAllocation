@@ -22,22 +22,23 @@ namespace MemoryAllocation
     public MemoryInitializationForm()
     {
       InitializeComponent();
-      
+
       memorySize = 65536;
       algorithm = Memory.FIRST_FIT;
-      
+
       holes = new List<MemorySlot>();
     }
 
     private void button_add_Click(object sender, EventArgs e)
     {
-      MemorySlot slot = new MemorySlot(
-        int.Parse(textBox_start.Text),
-        int.Parse(textBox_size.Text)
-        );
+      int start = int.Parse(textBox_start.Text);
+      int size = int.Parse(textBox_size.Text);
+      MemorySlot slot = new MemorySlot(start, size);
       holes.Add(slot);
       listBox_holes.Items.Add(slot);
       button_Initialize.Enabled = listBox_holes.Items.Count != 0;
+      if (start + size > int.Parse(textBox_memorySize.Text))
+        textBox_memorySize.Text = (start + size).ToString();
     }
 
     private void button_Initialize_Click(object sender, EventArgs e)

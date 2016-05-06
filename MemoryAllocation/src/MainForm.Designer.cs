@@ -51,7 +51,7 @@
       this.listBox_processes.Location = new System.Drawing.Point(6, 19);
       this.listBox_processes.Name = "listBox_processes";
       this.listBox_processes.Size = new System.Drawing.Size(148, 264);
-      this.listBox_processes.TabIndex = 0;
+      this.listBox_processes.TabIndex = 4;
       // 
       // label1
       // 
@@ -86,7 +86,7 @@
       this.textBox_name.Location = new System.Drawing.Point(53, 19);
       this.textBox_name.Name = "textBox_name";
       this.textBox_name.Size = new System.Drawing.Size(105, 20);
-      this.textBox_name.TabIndex = 5;
+      this.textBox_name.TabIndex = 1;
       this.textBox_name.Text = "Process Name";
       // 
       // label2
@@ -129,7 +129,7 @@
       this.button_deallocate.Location = new System.Drawing.Point(6, 292);
       this.button_deallocate.Name = "button_deallocate";
       this.button_deallocate.Size = new System.Drawing.Size(148, 23);
-      this.button_deallocate.TabIndex = 1;
+      this.button_deallocate.TabIndex = 5;
       this.button_deallocate.Text = "Deallocate";
       this.button_deallocate.UseVisualStyleBackColor = true;
       this.button_deallocate.Click += new System.EventHandler(this.button_deallocate_Click);
@@ -157,7 +157,7 @@
       this.button_Initialize.Location = new System.Drawing.Point(6, 19);
       this.button_Initialize.Name = "button_Initialize";
       this.button_Initialize.Size = new System.Drawing.Size(158, 23);
-      this.button_Initialize.TabIndex = 7;
+      this.button_Initialize.TabIndex = 0;
       this.button_Initialize.Text = "Initialize";
       this.button_Initialize.UseVisualStyleBackColor = true;
       this.button_Initialize.Click += new System.EventHandler(this.button_Initialize_Click);
