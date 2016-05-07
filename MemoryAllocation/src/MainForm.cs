@@ -62,9 +62,12 @@ namespace MemoryAllocation
 		private int processCounter = 0;
 		private void refresh()
 		{
+			List<MemorySlot> slots = memory.getAllocatedSlots();
+			slots.Sort((s1, s2) => s1.start.CompareTo(s2.start));
+
 			listBox_processes.Items.Clear();
-			foreach (Process p in memory.getProcesses())
-				listBox_processes.Items.Add(p);
+			foreach (MemorySlot slot in slots)
+				listBox_processes.Items.Add(slot.process);
 
 			textBox_name.Text = "Process " + processCounter.ToString();
 			panel_memory.Refresh();
@@ -90,9 +93,10 @@ namespace MemoryAllocation
 		{
 			int startAddress = slot.start;
 			int endAddress = slot.start + slot.size;
-			string slotText = "(Empty)";
+			string slotText = "Free";
 			if (slot.process != null)
 				slotText = slot.process.name;
+			slotText = slotText + " - " + slot.size.ToString() + " B";
 
 			Pen pen = new Pen(Color.Black, 2);
 
