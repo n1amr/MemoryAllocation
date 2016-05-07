@@ -105,7 +105,6 @@ namespace MemoryAllocation
 
 		private MemorySlot findSlot(int size)
 		{
-			MemorySlot slot = null;
 			for (int i = 0; i < freeSlots.Count; i++)
 				if (freeSlots[i].size >= size)
 					return freeSlots[i];
@@ -135,9 +134,7 @@ namespace MemoryAllocation
 			}
 
 			if (start2 > end1)
-			{
 				return null;
-			}
 
 			int start = start1;
 			int end = end1 > end2 ? end1 : end2;
@@ -171,7 +168,7 @@ namespace MemoryAllocation
 			else if (algorithm == BEST_FIT)
 				return (s1.size < s2.size);
 			else if (algorithm == WORST_FIT)
-				return (s1.start > s2.start);
+				return (s1.size > s2.size);
 			return false;
 		}
 

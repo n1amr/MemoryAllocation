@@ -33,12 +33,16 @@ namespace MemoryAllocation
 		{
 			int start = int.Parse(textBox_start.Text);
 			int size = int.Parse(textBox_size.Text);
+			int end = start + size;
+
 			MemorySlot slot = new MemorySlot(start, size);
 			holes.Add(slot);
 			listBox_holes.Items.Add(slot);
+
 			button_Initialize.Enabled = listBox_holes.Items.Count != 0;
-			if (start + size > int.Parse(textBox_memorySize.Text))
-				textBox_memorySize.Text = (start + size).ToString();
+			textBox_start.Text = end.ToString();
+			if (end > int.Parse(textBox_memorySize.Text))
+				textBox_memorySize.Text = end.ToString();
 		}
 
 		private void button_Initialize_Click(object sender, EventArgs e)
